@@ -3,13 +3,13 @@ async function createUserTable() {
     const params = {
         TableName: 'Users',
         KeySchema: [
-            { AttributeName: 'Email', KeyType: 'HASH' },
-            { AttributeName: 'Age', KeyType: 'RANGE' }, // Partition key
+            // { AttributeName: 'Email', KeyType: 'HASH' },
+            { AttributeName: 'UserID', KeyType: 'HASH' }, // Partition key
         ],
         AttributeDefinitions: [
-            // { AttributeName: 'UserID', AttributeType: 'S' }, // S for String (matches KeyType)
-            { AttributeName: 'Email', AttributeType: 'S' },
-            { AttributeName: 'Age', AttributeType: 'N' }, // N for Number
+            { AttributeName: 'UserID', AttributeType: 'S' }, // S for String (matches KeyType)
+            // { AttributeName: 'Email', AttributeType: 'S' },
+            // { AttributeName: 'Age', AttributeType: 'N' }, // N for Number
             // { AttributeName: 'ProfilePicture', AttributeType: 'S' },
             // { AttributeName: 'PasswordHash', AttributeType: 'S' },
         ],
@@ -20,6 +20,7 @@ async function createUserTable() {
         StreamSpecification: {
             StreamEnabled: false,
         },
+        tableClass:'STANDARD',
     };
 
 

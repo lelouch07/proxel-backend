@@ -23,15 +23,3 @@ const dynamodb = new AWS.DynamoDB();
 const s3 = new AWS.S3();
 export default dynamodb;
 
-
-
-
-//To check the tables in the DynamoDB
-
-//aws dynamodb list-tables --endpoint-url http://localhost:8000
-
-
-
-
-//To print the content of the DynamoDB
-//aws dynamodb scan --table-name TableName --endpoint-url http://localhost:8000
