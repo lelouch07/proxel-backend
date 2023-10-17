@@ -1,5 +1,4 @@
-// server.ts
-// require('dotenv').config();
+
 import dynamodb from '../models/dynamoDBConfig';
 import  AWS from 'aws-sdk';
 import bcrypt from 'bcryptjs';
@@ -43,16 +42,24 @@ authRouter.post('/login', async (req, res) => {
             },
         };
         if (secretOrPrivateKey) {
-            jwt.sign(payload, secretOrPrivateKey, { expiresIn: 3600 }, (err, token) => {
+            jwt.sign(payload, secretOrPrivateKey, { expiresIn: 3600 }, (err, Token) => {
                 if (err) throw err;
                 
                 // Set the JWT token as a cookie
-                res.cookie('token', token, {
-                    httpOnly: true, // Prevent access from JavaScript
+                res.cookie('token', Token, {
+                    httpOnly: false, // access from JavaScript
                     expires: new Date(Date.now() + 3600 * 1000), // Expires in 1 hour
                 });
-                
-                res.json({ message: 'Signup successful' });
+                const tokenPayLoad={
+                    token:Token,
+                    options:{
+                    httpOnly: false, // access from JavaScript
+                    expires: new Date(Date.now() + 3600 * 1000), // Expires in 1 hour
+                    }
+
+
+                }
+                res.json({ tokenPayLoad });
             });
         }else
         {

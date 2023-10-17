@@ -26,6 +26,11 @@ async function createUserTable() {
 
 
     dynamodb.createTable(params, (err, data) => {
+        if(err)
+        {
+            console.log(err);
+        }
+        else
             console.log('Table created successfully:', data);
     });
 }

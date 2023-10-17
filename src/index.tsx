@@ -22,7 +22,7 @@ app.use('/api/profile', profileRouter);
 
 
 
-// // User table created with key params USERID , EMAILID
+// // // User table created with key params USERID , EMAILID
 // createUserTable.then(()=>{
 //     console.log("User Table Created Successfully");
 // }).catch(()=>{
