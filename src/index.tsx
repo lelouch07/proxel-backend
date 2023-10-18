@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 import authRouter from './Routes/auth';
-import createUserTable from './models/user';
+// import createUserTable from './models/user';
 import profileRouter from './Routes/profile'
 import cookieParser from 'cookie-parser';
 
@@ -28,6 +28,9 @@ app.use('/api/profile', profileRouter);
 // }).catch(()=>{
 //     console.log("User Table Already exists")
 // })
+
+
+
 
 
 // const Port=process.env.port;
