@@ -1,3 +1,4 @@
+import AWS from 'aws-sdk';
 import dynamodb from './dynamoDBConfig';
 async function createUserTable() {
     const params = {
@@ -35,4 +36,38 @@ async function createUserTable() {
     });
 }
 
-export default createUserTable();
+
+
+// Helper function to get a user by ID
+async function getUser(userId: string) {
+    try{
+
+        const params = {
+            TableName: 'Users',
+            Key: { UserID: { S: userId } },
+        };
+        const result = await dynamodb.getItem(params).promise();
+        return result.Item ? AWS.DynamoDB.Converter.unmarshall(result.Item) : null;
+    }catch(err){
+        console.log('Error in getting user', err);
+        throw err;
+
+    }
+}
+
+// Helper function to create a new user
+async function createUser(userId: string, email: string, age: number, passwordHash: string) {
+    const params = {
+        TableName: 'Users',
+        Item: AWS.DynamoDB.Converter.marshall({ UserID: userId, Email: email, Age: age, PasswordHash: passwordHash }),
+    };
+    try {
+        await dynamodb.putItem(params).promise();
+    }
+    catch (error) {
+        console.log("inside the create user sign up block");
+        // console.error();
+    }
+}
+
+export { createUserTable, getUser, createUser };
