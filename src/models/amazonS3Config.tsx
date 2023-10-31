@@ -1,38 +1,37 @@
-// const AWS = require('aws-sdk');
+// const AWS = require("aws-sdk");
+// const environment = process.env.BUN_ENV || 'development';
 
-// // ... AWS SDK configuration ...
+// if (environment === 'development') {
+//     AWS.config.update({
+//         region: "kolhapur",
+//         endpoint: "http://localhost:8000"
+//     });
+// }
+// else
+// {
+//     // Configure AWS SDK to use actual AWS services
+//     AWS.config.update({
+//         region: 'your-aws-region',
+//         // Set your actual AWS access key and secret key here or use IAM roles if deployed to AWS.
+//     });
+// }
 
-// // Create an S3 instance
 // const s3 = new AWS.S3();
 
-// // Function to upload a user's profile picture to S3
-// const uploadProfilePicture = async (userId, fileBuffer, fileType) => {
+// async function uploadImageToS3(bucketName, key, imageBuffer) {
 //     const params = {
-//         Bucket: 'your-s3-bucket-name',
-//         Key: `profile-pictures/${userId}.${fileType}`, // Unique key based on user ID and file type
-//         Body: fileBuffer, // Binary image data
-//         ContentType: `image/${fileType}`, // Set the content type based on the file type (e.g., 'image/png')
+//         Bucket: bucketName,
+//         Key: key,
+//         Body: imageBuffer,
 //     };
 
 //     try {
-//         const uploadResult = await s3.upload(params).promise();
-//         return uploadResult.Location; // URL of the uploaded image in S3
+//         await s3.upload(params).promise();
+//         console.log(`Image ${key} uploaded to S3 Local`);
 //     } catch (error) {
-//         console.error('Error uploading profile picture to S3:', error);
+//         console.error(`Error uploading image to S3: ${error}`);
 //         throw error;
 //     }
-// };
+// }
 
-// // Example usage of the uploadProfilePicture function:
-// const userId = 'uniqueUserId';
-// const fileBuffer = ...; // Binary image data (e.g., read from a file)
-// const fileType = 'png'; // File type (e.g., 'png' or 'jpg')
-
-// uploadProfilePicture(userId, fileBuffer, fileType)
-//     .then((imageUrl) => {
-//         // Store the imageUrl in your DynamoDB User schema or use it as needed.
-//         console.log('Profile picture uploaded:', imageUrl);
-//     })
-//     .catch((error) => {
-//         console.error('Error uploading profile picture:', error);
-//     });
+// export { uploadImageToS3 };

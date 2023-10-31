@@ -72,7 +72,7 @@ authRouter.post('/login', async (req, res) => {
 
 authRouter.post('/signup', async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         const { userId, email, age, password } = req.body;
 
         // Check if the user already exists
@@ -103,7 +103,7 @@ authRouter.post('/signup', async (req, res) => {
     
                 // Set the JWT token as a cookie
                 res.cookie('token', token, {
-                    httpOnly: true, // Prevent access from JavaScript
+                    httpOnly: false, // Prevent access from JavaScript
                     expires: new Date(Date.now() + 36000 * 1000), // Expires in 10 hour
                 });
     
