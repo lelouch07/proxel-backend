@@ -106,7 +106,7 @@ authRouter.post('/signup', async (req, res) => {
                     httpOnly: false, // Prevent access from JavaScript
                     expires: new Date(Date.now() + 36000 * 1000), // Expires in 10 hour
                 });
-    
+                console.log("signup successful")
                 // Redirect to the profile page after successful login
                 res.json({ message: 'Signup successful' });
             });

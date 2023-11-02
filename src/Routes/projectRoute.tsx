@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { createProject } from '../models/projects'; // Import the createProject function
+import { createProject, getUserProjects } from '../models/projects'; // Import the createProject function
 import { authenticateToken } from '../middleware/authMiddleware';
 import { AuthenticatedRequest } from '../Interfaces/userReqInteface';
 
@@ -44,5 +44,20 @@ projectRouter.post('/', authenticateToken,async (req: Request, res: Response) =>
             res.status(500).json({ message: 'Error creating project' });
         });
 });
+
+
+
+projectRouter.get('/userProjects',authenticateToken,async(req:Request,res:Response)=>{
+    const user = (req as AuthenticatedRequest).user;
+    const UserID = user.UserID;
+    console.log("get User projects req received")
+    try {
+        const projects = await getUserProjects(UserID);
+        res.status(200).json(projects); // Send the retrieved projects as a JSON response
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch user projects' });
+    }
+
+})
 
 export default projectRouter;
